@@ -274,5 +274,6 @@ simple_shop/media/
 
 .ipython/
 .env
+.envs
 .envs/*
 !.envs/.local/
