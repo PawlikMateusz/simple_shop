@@ -44,6 +44,7 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
+migrations/
 .hypothesis/
 
 # Translations
@@ -271,7 +272,7 @@ simple_shop/media/
 
 .pytest_cache/
 
-
+.vscode
 .ipython/
 .env
 .envs/*

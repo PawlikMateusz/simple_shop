@@ -1,5 +1,11 @@
 {% extends "base.html" %}
-
 {% block content %}
-Hello from my first shopppp page!
+  {% for product in product_list %}
+    {{ product.name }}
+    {{ product.description }}
+    {{ product.price }}
+    {% for image in product.images.all %}
+      <img src="{{ image }}" alt="product_picture">
+    {% endfor %}
+  {% endfor %}
 {% endblock content %}

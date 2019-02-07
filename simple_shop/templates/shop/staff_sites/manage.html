@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}
+  {% trans "Manage Simple Shop" %}
+{% endblock title %}
+{% block content %}
+  <a class="" href="{% url 'shop:product_add_view'  %}">{% trans "Add new product" %}</a>
+{% endblock content %}

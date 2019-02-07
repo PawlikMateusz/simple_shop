@@ -1,11 +1,11 @@
-from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
-from django.utils.text import slugify
-from django.utils.safestring import mark_safe
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
 from django.shortcuts import get_object_or_404
-
+from django.utils.safestring import mark_safe
+from django.utils.text import slugify
 from PIL import Image
+
 # Create your models here.
 
 
@@ -15,8 +15,15 @@ class Category(models.Model):
     slug = models.SlugField(unique=True)
     sex = models.BooleanField(choices=SEX_CHOICES)
 
-    def __str__(self):
+    class Meta(object):
+        verbose_name_plural = "categories"
+
+    @property
+    def get_name(self):
         return self.name
+
+    def __str__(self):
+        return f'{self.get_sex_display()} - {self.name}'
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -25,22 +32,21 @@ class Category(models.Model):
 
 class Discount(models.Model):
     name = models.CharField(max_length=100)
-    value = models.IntegerField(
-        validators=[MinValueValidator(0, message='Percent value must bigger than 0'),
-                    MaxValueValidator(100, message='100 perecent is maxiumum')])
+    value = models.IntegerField(validators=[MinValueValidator(0, message='Percent value must bigger than 0'),
+                                            MaxValueValidator(100, message='100 perecent is maxiumum')])
 
     def __str__(self):
         return self.name
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(unique=True)
     description = models.CharField(max_length=1000)
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, related_name='products')
-    price = models.DecimalField(decimal_places=2, max_digits=5,
-                                validators=[MinValueValidator(0, message='Price must bigger than 0')])
+    price = models.DecimalField(decimal_places=2, max_digits=5, validators=[
+        MinValueValidator(0, message='Price must bigger than 0')])
     discount = models.ForeignKey(
         Discount, on_delete=models.PROTECT, related_name='products', blank=True, null=True)
 
@@ -48,7 +54,7 @@ class Product(models.Model):
     def discount_price(self):
         if not self.discount:
             return False
-        result = float(self.price) * ((100-self.discount.value)/100)
+        result = float(self.price) * ((100 - self.discount.value) / 100)
         return '{:.2f}'.format(round(result, 2))
 
     @property
@@ -71,18 +77,19 @@ def upload_path_handler(instance, filename):
     return "products/{0}/{1}".format(instance.product.id, filename)
 
 
-class ProductImages(models.Model):
+class ProductImage(models.Model):
     MAIN_IMAGE_CHOICE = ((True, 'Yes'), (False, 'No'))
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to=upload_path_handler,
-                              default='products/default.jpg')
+    image = models.ImageField(
+        upload_to=upload_path_handler, default='products/default.jpg')
     main_image = models.BooleanField(choices=MAIN_IMAGE_CHOICE, default=False)
 
     def image_tag(self):
         if 'default' in self.image.url:
             return 'Default image'
-        return mark_safe('<img src="%s" width="150" height="150" />' % (self.image.url))
+        return mark_safe(
+            '<img src="%s" width="150" height="150" />' % (self.image.url))
 
     image_tag.short_description = 'Image'
 
@@ -90,7 +97,7 @@ class ProductImages(models.Model):
         return str(self.image.url)
 
     def save(self, *args, **kwargs):
-        super(ProductImages, self).save(*args, **kwargs)
+        super(ProductImage, self).save(*args, **kwargs)
         if self.image:
             img = Image.open(self.image.path)
             if img.height > 300 or img.width > 300:
