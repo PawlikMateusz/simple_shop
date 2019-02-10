@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load static i18n %}
 {% block content %}
-  <div>
-    <h2>{% trans 'Recenlty added products' %}</h2>
-  </div>
+  <h4>Products in category:
+    {{ category.get_name }}
+  </h4>
   <div class="products">
     {% for product in product_list %}
       {% include "../layout/product_card.html" %}

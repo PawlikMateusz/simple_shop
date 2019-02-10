@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n crispy_forms_tags %}
+{% load crispy_forms_filters %}
 {% block head %}
   {{ wizard.form.media }}
 {% endblock %}
@@ -14,6 +15,13 @@
       {{ wizard.management_form }}
       {% if wizard.form.forms %}
         {{ wizard.form.management_form }}
+        {% if wizard.form.non_form_errors %}
+          {% for error in wizard.form.non_form_errors %}
+            <ul class="form_error_list">
+              <li class="">{{ error }}</li>
+            </ul>
+          {% endfor %}
+        {% endif %}
         {% for form in wizard.form.forms %}
           {{ form.as_p }}
           <hr>

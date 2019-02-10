@@ -17,6 +17,7 @@ class Category(models.Model):
 
     class Meta(object):
         verbose_name_plural = "categories"
+        unique_together = ('name', 'sex')
 
     @property
     def get_name(self):
@@ -26,6 +27,7 @@ class Category(models.Model):
         return f'{self.get_sex_display()} - {self.name}'
 
     def save(self, *args, **kwargs):
+        self.name = self.name.strip()
         self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
 
@@ -123,4 +125,4 @@ class Pair(models.Model):
         return str(self.number)
 
     class Meta:
-        ordering = ['number']
+        unique_together = ('number', 'product')

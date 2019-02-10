@@ -10,7 +10,7 @@ from formtools.wizard.views import SessionWizardView
 import os
 import shutil
 
-from .models import Product, Category
+from .models import Product, Category, ProductImage
 from .forms import ProductForm, ProductImageFormSet, PairFormSet
 # Create your views here.
 
@@ -19,6 +19,11 @@ class ProductListView(ListView):
     model = Product
     queryset = Product.objects.all()
     template_name = 'shop/home.html'
+
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'shop/product_detail_view.html'
 
 
 class ManageTemplateView(TemplateView):
@@ -36,15 +41,19 @@ class ProductAddWizard(SessionWizardView):
         product.save()
         images_formset = list(form_list)[1]
         images = images_formset.save(commit=False)
-        for image in images:
-            image.product = product
+        if images:
+            for image in images:
+                image.product = product
+                image.save()
+            shutil.rmtree(os.path.join(settings.MEDIA_ROOT, 'photos'))
+        else:
+            image = ProductImage(product=product)
             image.save()
         pairs_formset = list(form_list)[2]
         pairs = pairs_formset.save(commit=False)
         for pair in pairs:
             pair.product = product
             pair.save()
-        shutil.rmtree(os.path.join(settings.MEDIA_ROOT, 'photos'))
         messages.success(self.request, message='Product added successfully')
         return redirect('shop:home_view')
 
@@ -54,3 +63,16 @@ class CategoryCreateView(SuccessMessageMixin, CreateView):
     fields = ['name', 'sex']
     success_url = reverse_lazy('shop:product_add_view')
     success_message = "Category was created successfully"
+
+
+class CategoryProductsListView(ListView):
+    model = Product
+    template_name = 'shop/products_in_category.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category = Category.objects.get(slug=self.kwargs['slug'])
+        context['product_list'] = Product.objects.filter(
+            category=category).order_by('-id')
+        context['category'] = category
+        return context

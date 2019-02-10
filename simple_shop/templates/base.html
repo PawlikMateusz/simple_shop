@@ -24,7 +24,7 @@
         crossorigin="anonymous">
       <!-- Your stuff: Third-party CSS libraries go here -->
       <!-- This file stores project-specific CSS -->
-      <link href="{% static 'css/project.css' %}" rel="stylesheet">
+      <link href="{% static 'css/project.min.css' %}" rel="stylesheet">
     {% endblock %}
   </head>
   <body>
@@ -37,9 +37,27 @@
           <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
         {% endfor %}
       {% endif %}
-      {% block content %}
-        <p>Use this document as a way to quick start any new project.</p>
-      {% endblock content %}
+      <div class="row">
+        <div class="col-md-2">
+          <aside class="side">
+            <h4>{% trans 'He' %}</h4>
+            {% for cat in male_categories %}
+              <a href="{% url 'shop:category_products' slug=cat.slug %}">{{ cat.get_name }}</a>
+              <br>
+            {% endfor %}
+            <h4>{% trans 'She' %}</h4>
+            {% for cat in female_categories %}
+              <a href="{% url 'shop:category_products' slug=cat.slug %}">{{ cat.get_name }}</a>
+              <br>
+            {% endfor %}
+          </aside>
+        </div>
+        <div class="col-md-10">
+          {% block content %}
+            <p>Use this document as a way to quick start any new project.</p>
+          {% endblock content %}
+        </div>
+      </div>
     </div>
     <!-- /container -->
     {% block modal %}{% endblock modal %}

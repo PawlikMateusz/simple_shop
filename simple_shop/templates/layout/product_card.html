@@ -1,0 +1,31 @@
+{% load static i18n %}
+<div class="product-box">
+  <div class="product-box-image-box">
+    <img class="product-box-image" src="{{ product.images.first }}" alt="Picture">
+    {% if product.discount_price %}
+      <img class="sale-icon" src={% static 'images/sale.png' %} alt="">
+    {% endif %}
+  </div>
+  <div class="product-box-text">
+    <a href="{% url 'shop:product_detail_view' slug=product.slug %}">
+      <h4>{{ product.name }}</h4>
+    </a>
+    {% if product.discount_price %}
+      <p>{% trans 'Price' %}:
+        <span class="old-price">{{ product.price }}
+          PLN</span>
+        <span class="no-wrap new-price">{{ product.discount_price }}
+          PLN</span>
+      </p>
+    {% else %}
+      <p>{% trans 'Price' %}:
+        {{ product.price }}
+        PLN</p>
+    {% endif %}
+    <ul class="available-numbers">
+      {% for pair in product.available_pairs.all %}
+        <li>{{ pair.get_available_pair }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>

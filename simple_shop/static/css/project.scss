@@ -1,0 +1,92 @@
+
+// project specific CSS goes here
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  // grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 10px;
+
+  .product-box {
+    &-image-box {
+      height: 150px;
+      .sale-icon {
+        position: absolute;
+        transform: translate(-50px, 20px);
+      }
+    }
+
+    &-image {
+      max-width: 90%;
+      max-height: 90%;
+      height: auto;
+    }
+
+    &-text {
+      line-height: 100%;
+
+      h4 {
+        margin-top: 0px;
+      }
+
+      button {
+        padding: 5px;
+        opacity: 0.6;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+
+      .available-numbers {
+        padding-left: 0px;
+
+        li {
+          display: inline;
+          font-size: 0.8rem;
+          border: 0.5px solid grey;
+          padding: 2px;
+        }
+      }
+    }
+  }
+}
+////////////////////////////////
+		//Variables//
+////////////////////////////////
+
+// Alert colors
+
+$white: #fff;
+$mint-green: #d6e9c6;
+$black: #000;
+$pink: #f2dede;
+$dark-pink: #eed3d7;
+$red: #b94a48;
+
+////////////////////////////////
+		//Alerts//
+////////////////////////////////
+
+// bootstrap alert CSS, translated to the django-standard levels of
+// debug, info, success, warning, error
+
+.alert-debug {
+  background-color: $white;
+  border-color: $mint-green;
+  color: $black;
+}
+
+.alert-error {
+  background-color: $pink;
+  border-color: $dark-pink;
+  color: $red;
+}
+.base_form{
+  max-width: 400px;
+}
+.form_error_list{
+  background-color: $pink;
+  border-color: $dark-pink;
+  color: $red;
+  border-radius: 5px;
+}
