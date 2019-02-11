@@ -14,4 +14,9 @@
   {% for image in product.images.all %}
     <img src="{{ image }}" alt="product_picture">
   {% endfor %}
+  <form action="{% url 'cart:cart_add' %}" method="post">
+    {{ cart_product_form }}
+    {% csrf_token %}
+    <input type="submit" value="Add to cart">
+  </form>
 {% endblock content %}

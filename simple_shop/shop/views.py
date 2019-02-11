@@ -10,8 +10,10 @@ from formtools.wizard.views import SessionWizardView
 import os
 import shutil
 
+from cart.forms import CartAddPairForm
 from .models import Product, Category, ProductImage
 from .forms import ProductForm, ProductImageFormSet, PairFormSet
+
 # Create your views here.
 
 
@@ -24,6 +26,11 @@ class ProductListView(ListView):
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'shop/product_detail_view.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cart_product_form'] = CartAddPairForm(self.object)
+        return context
 
 
 class ManageTemplateView(TemplateView):

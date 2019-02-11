@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block content %}
+  <h1>{% trans 'Your shopping cart' %}</h1>
+  <table class="product_list_table">
+    <thead>
+      <tr>
+        <th>{% trans 'Image' %}</th>
+        <th>{% trans 'Product' %}</th>
+        <th>{% trans 'Size' %}</th>
+        <th>{% trans 'Quantity' %}</th>
+        <th>{% trans 'Remove' %}</th>
+        <th>{% trans 'Unit price' %}</th>
+        <th>{% trans 'Price' %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart %}
+        <tr>
+          <td>
+            {% for img in item.pair.product.images.all %}
+              <img class="small_image_edit" src="{{ img }}" alt="Picture">
+            {% endfor %}
+          </td>
+          <td>{{ item.pair.product.name }}</td>
+          <td>{{ item.pair.get_available_pair }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>
+            <a href="{% url 'cart:cart_remove' pair=item.pair.id %}">{% trans 'Remove' %}</a>
+          </td>
+          <td class=" num">{{ item.price }}
+            PLN</td>
+          <td class="num">{{ item.total_price }}
+            PLN</td>
+        </tr>
+      {% endfor %}
+      <tr class="total">
+        <td>{% trans 'Total' %}</td>
+        <td colspan="5"></td>
+        <td class="num">
+          {{ cart.get_total_price }}
+          PLN
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="text-right">
+    <a href="">{% trans 'Continue shopping' %}</a>
+    <a href="" class="button">{% trans 'Create order' %}</a>
+  </p>
+{% endblock content %}

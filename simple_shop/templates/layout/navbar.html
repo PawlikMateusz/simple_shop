@@ -30,6 +30,9 @@
             </li>
           {% endif %}
           <li class="nav-item">
+            <a id="sign-up-link" class="nav-link" href="{% url 'cart:cart_detail' %}">{% trans "Shopping cart" %}</a>
+          </li>
+          <li class="nav-item">
             {# URL provided by django-allauth/account/urls.py #}
             <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
           </li>
@@ -38,6 +41,9 @@
             <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
           </li>
         {% else %}
+          <li class="nav-item">
+            <a id="sign-up-link" class="nav-link" href="{% url 'cart:cart_detail' %}">{% trans "Shopping cart" %}</a>
+          </li>
           <li class="nav-item">
             {# URL provided by django-allauth/account/urls.py #}
             <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>

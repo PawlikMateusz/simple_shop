@@ -1,5 +1,7 @@
 
 // project specific CSS goes here
+
+// PRODUCT CARD
 .products {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -49,6 +51,42 @@
       }
     }
   }
+}
+
+
+
+// PRODUCT LIST TABLE
+.product_list_table {
+  border-collapse: collapse;
+  width: 100%;
+
+  td,
+  th {
+    border: 1px solid #d1d1d1;
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  .total{
+    font-weight: bold;
+  }
+}
+
+
+.small_image_edit {
+  max-height: 70px;
+  width: auto;
+}
+
+.color-red {
+  color: red;
+}
+
+.no-wrap {
+  white-space: nowrap;
 }
 ////////////////////////////////
 		//Variables//

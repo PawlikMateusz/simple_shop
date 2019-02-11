@@ -72,7 +72,8 @@ THIRD_PARTY_APPS = [
 ]
 LOCAL_APPS = [
     'simple_shop.users.apps.UsersAppConfig',
-    'simple_shop.shop.apps.ShopAppConfig'
+    'simple_shop.shop.apps.ShopAppConfig',
+    'simple_shop.cart.apps.CartAppConfig',
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -193,6 +194,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 'simple_shop.shop.context_processors.product_categories',
+                'simple_shop.cart.context_processors.cart_info',
             ],
         },
     },
@@ -255,3 +257,6 @@ ACCOUNT_USERNAME_REQUIRED = False
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+
+# cart app settings
+CART_SESSION_ID = 'cart'

@@ -2,7 +2,6 @@ from django.conf import settings
 from django.urls import include, path
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
 urlpatterns = [
@@ -13,6 +12,7 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
     path('', include("simple_shop.shop.urls", namespace="shop")),
+    path('cart/', include("simple_shop.cart.urls", namespace="cart")),
 
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
