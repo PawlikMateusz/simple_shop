@@ -13,6 +13,7 @@ urlpatterns = [
     # Your stuff: custom urls includes go here
     path('', include("simple_shop.shop.urls", namespace="shop")),
     path('cart/', include("simple_shop.cart.urls", namespace="cart")),
+    path('orders/', include("simple_shop.orders.urls", namespace="orders")),
 
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT

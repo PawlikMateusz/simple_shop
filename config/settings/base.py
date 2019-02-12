@@ -74,7 +74,7 @@ LOCAL_APPS = [
     'simple_shop.users.apps.UsersAppConfig',
     'simple_shop.shop.apps.ShopAppConfig',
     'simple_shop.cart.apps.CartAppConfig',
-    # Your stuff: custom apps go here
+    'simple_shop.orders.apps.OrdersAppConfig',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

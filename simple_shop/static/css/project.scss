@@ -41,13 +41,19 @@
 
       .available-numbers {
         padding-left: 0px;
-
+        display: inline;
         li {
           display: inline;
           font-size: 0.8rem;
           border: 0.5px solid grey;
           padding: 2px;
         }
+      }
+      .add_to_card_link{
+        text-decoration: none;
+        color: grey;
+        display: inline-block;
+        margin-left: 30px;
       }
     }
   }

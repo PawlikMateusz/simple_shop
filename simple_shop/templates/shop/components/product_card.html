@@ -27,6 +27,8 @@
         <li>{{ pair.get_available_pair }}</li>
       {% endfor %}
     </ul>
-    <button type="button" name="button">Add to card</button>
+    <a
+      class="add_to_card_link"
+      href="{% url 'shop:product_detail_view' slug=product.slug %}">Add to card</a>
   </div>
 </div>
