@@ -46,6 +46,8 @@
   </table>
   <p class="text-right">
     <a href="{% url 'shop:home_view' %}">{% trans 'Continue shopping' %}</a>
-    <a href="" class="button">{% trans 'Create order' %}</a>
+    {% if cart %}
+      <a href="{% url 'orders:order_create' %}" class="button">{% trans 'Create order' %}</a>
+    {% endif %}
   </p>
 {% endblock content %}

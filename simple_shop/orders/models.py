@@ -36,7 +36,8 @@ class Order(models.Model):
     @property
     def total_price(self):
         total_price = 0
-        for ordered_product in self.products:
+        products = OrderProducts.objects.filter(order=self)
+        for ordered_product in products:
             total_price += ordered_product.quantity * ordered_product.price
         return total_price
 
@@ -44,7 +45,8 @@ class Order(models.Model):
 class OrderProducts(models.Model):
     order = models.ForeignKey(
         Order, on_delete=models.CASCADE, related_name='products')
-    product = models.ForeignKey('shop.Product', on_delete=models.PROTECT)
+    pair = models.ForeignKey(
+        'shop.Pair', on_delete=models.PROTECT)
     quantity = models.IntegerField(
         validators=[MinValueValidator(0, message='Quantity must bigger than 0')])
     price = models.DecimalField(decimal_places=2, max_digits=5, validators=[

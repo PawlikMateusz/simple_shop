@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+  <h1>{% trans "Your order list" %}</h1>
+  {% for order in object_list %}
+    <p>First name:
+      {{ order.first_name }}
+    </p>
+    <p>Last name:
+      {{ order.last_name }}
+    </p>
+    {% for product in order.products.all %}
+      <ul>
+        <li>
+          Pair:
+          {{ product.pair }}
+        </li>
+        <li>
+          Unit price:
+          {{ product.price }}
+        </li>
+        <li>
+          Quantity:
+          {{ product.quantity }}
+        </li>
+      </ul>
+    {% endfor %}
+    <p>Total price:
+      {{ order.total_price }}
+    </p>
+  {% endfor %}
+{% endblock content %}

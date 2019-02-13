@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+  <h1>{% trans "Preview your submission" %}</h1>
+  <table>
+    <tr>
+      <th>{{ form.first_name.label }}:</th>
+      <td>{{ form.first_name.data }}</td>
+    </tr>
+    <tr>
+      <th>{{ form.last_name.label }}:</th>
+      <td>{{ form.last_name.data }}</td>
+    </tr>
+    <tr>
+      <th>{{ form.phone.label }}:</th>
+      <td>{{ form.phone.data }}</td>
+    </tr>
+    <tr>
+      <th>{{ form.email.label }}:</th>
+      <td>{{ form.email.data }}</td>
+    </tr>
+    <tr>
+      <th>{{ form.city.label }}:</th>
+      <td>{{ form.city.data }}</td>
+    </tr>
+    <tr>
+      <th>{{ form.zip_code.label }}:</th>
+      <td>{{ form.zip_code.data }}</td>
+    </tr>
+    <tr>
+      <th>{{ form.zip_code_city.label }}:</th>
+      <td>{{ form.zip_code_city.data }}</td>
+    </tr>
+    <tr>
+      <th>{{ form.payment_method.label }}:</th>
+      <td>{{ form.instance.get_payment_method_display }}</td>
+    </tr>
+  </table>
+  <form action="" method="post">{% csrf_token %}
+    {% for field in form %}{{ field.as_hidden }}
+    {% endfor %}
+    <input type="hidden" name="{{ stage_field }}" value="2"/>
+    <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}"/>
+    <p><input type="submit" value="{% trans "Submit" %}"/></p>
+  </form>
+  <h1>{% trans "Or edit it again" %}</h1>
+  <form action="" method="post">{% csrf_token %}
+    <table>
+      {{ form }}
+      </table>
+      <input type="hidden" name="{{ stage_field }}" value="1"/>
+      <p><input type="submit" value="{% trans "Preview" %}"/></p>
+    </form>
+  {% endblock content %}
