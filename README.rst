@@ -17,7 +17,7 @@ It's simple shop app build with django-cookiecutter. Main features:
 -used django-formtools (FormWizard, FormPreview)
 -manage app with permission for staff only
 -allauth authentication
--css styling with Sass
+-css styling with Sass  
 
 Run project with Docker
 ^^^^^^
