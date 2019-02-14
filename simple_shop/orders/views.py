@@ -4,7 +4,7 @@ from formtools.preview import FormPreview
 from django.shortcuts import HttpResponseRedirect
 from django.views.generic import ListView
 # Create your views here.
-from cart.cart import Cart
+from simple_shop.cart.cart import Cart
 
 from django.apps import apps
 

@@ -31,7 +31,7 @@ def cart_detail(request):
     return render(request, 'cart/cart_detail.html', {'cart': cart})
 
 
-def cart_remove(request, pair):
+def cart_remove(request, pk):
     cart = Cart(request)
-    cart.remove(pair)
+    cart.remove(pk)
     return redirect('cart:cart_detail')

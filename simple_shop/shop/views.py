@@ -5,14 +5,16 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.contrib import messages
 from django.urls import reverse_lazy
+
 from formtools.wizard.views import SessionWizardView
 
 import os
 import shutil
 
-from cart.forms import CartAddPairForm
+from simple_shop.cart.forms import CartAddPairForm
 from .models import Product, Category, ProductImage
 from .forms import ProductForm, ProductImageFormSet, PairFormSet
+
 
 # Create your views here.
 
