@@ -11,12 +11,12 @@ simple_shop
 
 About project
 --------
-It's simple shop app build with django-cookiecutter. Main features:
--development environment based on docker images
--session based shopping cart
--used django-formtools (FormWizard, FormPreview)
--manage app with permission for staff only
--allauth authentication
+It's simple shop app build with django-cookiecutter. Main features:  
+-development environment based on docker images  
+-session based shopping cart  
+-used django-formtools (FormWizard, FormPreview)  
+-manage app with permission for staff only  
+-allauth authentication  
 -css styling with Sass  
 
 Run project with Docker
